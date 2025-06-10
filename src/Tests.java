@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Tests {
 
     public static void main(String[] args) {
@@ -33,6 +35,30 @@ public class Tests {
             "Noņem tukšumsimbolus no virknes sākuma un beigām",
             "Tie ir nemainīgi", "startsWith()", "\"Sveiki!\""
         };
+        //Jautājumu secības sajaukšana
+        int[] jautajumuIndx = new int[jautajumi.length];
+        for (int i = 0; i < jautajumuIndx.length; i++) {
+            jautajumuIndx[i] = i;
+        }
+        shuffleArray(jautajumuIndx);
+
+        //Cikls kas izvada testa jautājumus sajauktā secībā
+        System.out.println("Tests par String un char funkcijām Java valodā");
+
+        for (int i = 0; i < jautajumuIndx.length; i++) {
+            int currentIndx = jautajumuIndx[i];
+            System.out.println("\n" + (i + 1) + ". " + jautajumi[currentIndx]);
+        }
+    }
+        private static void shuffleArray(int[] ar) {
+            Random rnd = new Random();
+            for (int i = ar.length - 1; i > 0; i--) {
+                int index = rnd.nextInt(i + 1);
+                // Apmaina elementus vietām
+                int a = ar[index];
+                ar[index] = ar[i];
+                ar[i] = a;
+            }
         
     }
 }
