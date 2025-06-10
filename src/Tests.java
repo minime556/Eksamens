@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Tests {
 
@@ -35,15 +36,19 @@ public class Tests {
             "Noņem tukšumsimbolus no virknes sākuma un beigām",
             "Tie ir nemainīgi", "startsWith()", "\"Sveiki!\""
         };
+        
+        //Masīvs kas saglabā lietotāja atbildes ievadi
+        String[] lietotajaAtb = new String[jautajumi.length];
+        
         //Jautājumu secības sajaukšana
         int[] jautajumuIndx = new int[jautajumi.length];
         for (int i = 0; i < jautajumuIndx.length; i++) {
             jautajumuIndx[i] = i;
         }
         shuffleArray(jautajumuIndx);
-
+        Scanner scanner = new Scanner(System.in);
         //Cikls kas izvada testa jautājumus sajauktā secībā
-        System.out.println("Tests par String un char funkcijām Java valodā");
+        System.out.println("=== Tests par String un char funkcijām Java valodā ===");
 
         for (int i = 0; i < jautajumuIndx.length; i++) {
             int currentIndx = jautajumuIndx[i];
@@ -58,8 +63,47 @@ public class Tests {
             System.out.println(opcijasBurts + ") " + visasAtbildes[currentIndx][atbSajauktsIndx]);
             opcijasBurts++;
         }
-    }
+     // Lietotāja ievades iegūšana
+        String ievade;
+        while (true) {
+            System.out.print("Ievadiet savu atbildi (A, B, C vai D): ");
+            ievade = scanner.nextLine().toUpperCase();
+            if (ievade.equals("A") || ievade.equals("B") || ievade.equals("C") || ievade.equals("D")) {
+                break;
+            } else {
+                System.out.println("Kļūdaina ievade. Lūdzu, ievadiet tikai vienu no burtiem: A, B, C vai D.");
+            }
         }
+
+        int izvelesIndekss = ievade.charAt(0) - 'A';
+        int originalAtbIndx = atbilzuIndeksi[izvelesIndekss];
+        lietotajaAtb[currentIndx] = visasAtbildes[currentIndx][originalAtbIndx];
+    }
+    
+        //Rezultātu apkopošana un izvade konsolē
+        System.out.println("\n===== TESTA REZULTĀTI =====");
+        int pareizi = 0;
+        for (int i = 0; i < jautajumi.length; i++) {
+            if (pareizasAtbildes[i].equals(lietotajaAtb[i])) {
+                pareizi++;
+            }
+        }
+        System.out.println("Jūs pareizi atbildējāt uz " + pareizi + " jautājumiem.");
+
+        if (pareizi < jautajumi.length) {
+            System.out.println("\n--- Nepareizi atbildētie jautājumi ---");
+            for (int i = 0; i < jautajumi.length; i++) {
+                if (!pareizasAtbildes[i].equals(lietotajaAtb[i])) {
+                    System.out.println("\nJautājums: " + jautajumi[i]);
+                    System.out.println("   - Jūsu atbilde: " + (lietotajaAtb[i] == null ? "Nav atbildēts" : lietotajaAtb[i]));
+                    System.out.println("   - Pareizā atbilde: " + pareizasAtbildes[i]);
+                }
+            }
+        } else {
+             System.out.println("\nVisi jautājumi atbildēti pareizi!!!");
+        }
+    scanner.close();
+    }
         private static void shuffleArray(int[] ar) {
             Random rnd = new Random();
             for (int i = ar.length - 1; i > 0; i--) {
