@@ -48,8 +48,18 @@ public class Tests {
         for (int i = 0; i < jautajumuIndx.length; i++) {
             int currentIndx = jautajumuIndx[i];
             System.out.println("\n" + (i + 1) + ". " + jautajumi[currentIndx]);
+        
+        //Atbilžu variantu indeksu masīvs un tā sajaukšana
+        int[] atbilzuIndeksi = {0, 1, 2, 3};
+        shuffleArray(atbilzuIndeksi);
+
+        char opcijasBurts = 'A';
+        for (int atbSajauktsIndx : atbilzuIndeksi) {
+            System.out.println(opcijasBurts + ") " + visasAtbildes[currentIndx][atbSajauktsIndx]);
+            opcijasBurts++;
         }
     }
+        }
         private static void shuffleArray(int[] ar) {
             Random rnd = new Random();
             for (int i = ar.length - 1; i > 0; i--) {
